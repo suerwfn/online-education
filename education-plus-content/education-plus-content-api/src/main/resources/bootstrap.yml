@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: content-api
+  cloud:
+    nacos:
+      server-addr: 192.168.200.130:8848
+      discovery:
+        namespace: ${spring.profiles.active}
+        group: education-project
+      config:
+        namespace: dev
+        group: education-project
+        refresh-enabled: true
+        file-extension: yaml
+        extension-configs:
+          - data-id: content-service-${spring.profiles.active}.yaml
+            group: education-project
+            refresh: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yaml
+            group: education-common
+            refresh: true
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: education-common
+            refresh: true
+
+  profiles:
+    active: dev

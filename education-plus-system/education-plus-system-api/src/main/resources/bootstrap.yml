@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: system-api
+  cloud:
+    nacos:
+      server-addr: 192.168.200.130:8848
+      discovery:
+        namespace: ${spring.profiles.active}
+        group: education-project
+      config: #自己的配置文件会自动拼接寻找 根据${name}-${active}-#{extension}
+        namespace: ${spring.profiles.active}
+        group: education-project
+        file-extension: yaml
+        refresh-enabled: true
+        extension-configs:
+          - data-id: system-service-${spring.profiles.active}.yaml
+            group: education-project
+            refresh: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yaml
+            group: education-common
+            refresh: true
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: education-common
+            refresh: true
+  profiles:
+    active: dev
